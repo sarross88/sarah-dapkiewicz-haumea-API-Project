@@ -65,12 +65,20 @@ a, .left-nav-menu{
     height: 40vh;
     background-color: black;
 }
+#banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
 /*Main*/
 
 h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 /*Card Stuff*/
@@ -85,27 +93,31 @@ h1 {
 }
 
 .card {
- height: 18rem;
+ height: 25rem;
  background-color:hsl(0,0%,100%);
  padding: 0 2% 5% 2%;
  box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2);
 }
 
-.artwork-name{
-  font-size: 1rem;
+#artwork-name-one, #artwork-name-two, #artwork-name-three{
+  font-size: 1.3rem;
   padding: 5% 0 5% 0;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .6px;
 }
 
 .card-img {
-    min-width: 100%;
+    width: 100%;
+    height: 17rem;
     background-color: gray;
+    object-fit: cover;
 }
 
 .rights-h3 {
-    font-size: .3rem;
+    font-size: .8rem;
     text-align: center;
-
+    letter-spacing: .2rem;
 }
 
 /*Footer*/
@@ -119,7 +131,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 }
-.footer-h3{
+.footer-h3 {
     font-size: .7rem;
     color: whitesmoke;
 }
