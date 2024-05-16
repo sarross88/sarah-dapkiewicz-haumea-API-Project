@@ -19,14 +19,61 @@ body {
 }
 
 /*Font*/
-
+.inter-bold {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" 0;
+  }
+  .inter-extraBold {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" 0;
+  }
+  .inter-light {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" 0;
+  }
+  .inter-lightx {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" 0;
+  }
 .vollkorn-bold{
   font-family: "Vollkorn", serif;
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
 }
+/*scroll watcher*/
+.scroll-watcher {
+    height: 10px;
+    position: fixed;
+    top: 0;
+    z-index:1000;
+    background-color: limegreen;
+    width: 100%;
+    scale: 0 1;
+    transform-origin: left;
+    animation: scroll-watcher linear;
+    animation-timeline: scroll();
+}
+@keyframes scroll-watcher {
+    to {scale: 1 1;} /*x and y axis*/
 
+}
 /*Navbar Items*/
 
 .flex-nav-div{
@@ -38,7 +85,7 @@ padding: 0 2% 0 2%;
 
 }
 .left-nav-menu{
-    width: 20vw;
+    width: 15vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -46,16 +93,20 @@ padding: 0 2% 0 2%;
 a, .left-nav-menu{
     text-decoration: none;
     color: black;
+    font-size: .8rem;
+    letter-spacing: .2px;
 }
 .center-nav-text{
    
 }
 .nav-header{
-   
+   letter-spacing: .4px;
+   font-size: 1.3rem;
+   color: #a19575;
 }
 
 .blank {
-    width: 20vw;
+    width: 15vw;
 }
 
 /*Banner*/
@@ -64,21 +115,22 @@ a, .left-nav-menu{
     width: 100vw;
     height: 40vh;
     background-color: black;
+
 }
 #banner-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: 0.5;
 }
-
 /*Main*/
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 1.2rem;
     text-align: center;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: .5px;
+    padding-bottom: 4%;
+    margin: 0;
 }
 
 /*Card Stuff*/
@@ -87,24 +139,36 @@ h1 {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
     justify-content: space-between;
     grid-auto-flow: row;
     gap: 5%;
+    margin-bottom: 2%;
 }
 
 .card {
  height: 25rem;
- background-color:hsl(0,0%,100%);
+ /*background-color: #ebe9e6;*/
+ background-color: #f2f2f0;
  padding: 0 2% 5% 2%;
  box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2);
 }
 
-#artwork-name-one, #artwork-name-two, #artwork-name-three{
-  font-size: 1.3rem;
-  padding: 5% 0 5% 0;
+#artwork-name-one, 
+#artwork-name-two, 
+#artwork-name-three, 
+#artwork-name-four,
+#artwork-name-five,
+#artwork-name-six,
+#artwork-name-seven,
+#artwork-name-eight,
+#artwork-name-nine{
+  font-size: 2rem;
+  padding: 2% 0 2% 0;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: .6px;
+  letter-spacing: .4px;
+  font-weight: 500;
 }
 
 .card-img {
@@ -112,6 +176,11 @@ h1 {
     height: 17rem;
     background-color: gray;
     object-fit: cover;
+    /*animation*/
+    animation: fade-in linear forwards;
+    animation-timeline: view();/* 500px 100pxbased on viewport, top offset, bottom offset*/
+    animation-range-start: contain;
+    animation-range-end: contain; 
 }
 
 .rights-h3 {
@@ -120,18 +189,42 @@ h1 {
     letter-spacing: .2rem;
 }
 
+/*Image Animations*/
+img {
+    animation: fade-in linear;
+    animation-timeline: view();/* 500px 100pxbased on viewport, top offset, bottom offset*/
+    animation-range-start: contain;
+    animation-range-end: contain; 
+}
+
+@keyframes fade-in {
+    from {scale:.8; opacity:0;}
+    to {scale:1; opacity: 1;}
+}
 /*Footer*/
 footer {
 width: 100vw;
-height: 10vh;
-background-color: black;
+
+background-color: #f2f2f0;
 }
 .footer-wrapper {
 display: flex;
 align-items: center;
 justify-content: center;
+flex-direction: column;
+justify-content: center;
 }
+
 .footer-h3 {
     font-size: .7rem;
-    color: whitesmoke;
+    color: #91918e;
+}
+
+.socials {
+    display: flex;
+}
+
+.socials, img {
+    width: 2rem;
+    height: 2rem;
 }
