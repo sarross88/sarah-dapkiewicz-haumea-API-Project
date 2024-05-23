@@ -1,103 +1,18 @@
 alert("HEY working!");
 
-/*/full/843,/0/default.jpg
+/*Hamburger Menu Stuff*/
+const hamMenu = document.querySelector('.ham-menu');
+console.log(hamMenu);
+const offScreenMenu = document.querySelector('.off-screen-menu');
+console.log(offScreenMenu);
 
-https://www.artic.edu/iiif/2/{identifier}/full/200,/0/default.jpg
-https://www.artic.edu/iiif/2/{identifier}/full/400,/0/default.jpg
-https://www.artic.edu/iiif/2/{identifier}/full/600,/0/default.jpg
-https://www.artic.edu/iiif/2/{identifier}/full/843,/0/default.jpg
+hamMenu.addEventListener('click', () => {
+  console.log('clicked');
+hamMenu.classList.toggle("active");
+offScreenMenu.classList.toggle("active");
+})
 
-https://api.artic.edu/api/v1/artworks/search?query[term][is_public_domain]=true&limit=0
-*/
-
-/*The Watermill with the Great Red Roof id 869*/
-
-/*THE RED ARMCHAIR ID  5357*/
-
-/*THE SEATED NUDE ID 7124*/
-
-
-
-/*async function getArtById(imageNum, id, artist) {
-    try {    
-      const response = await fetch(`https://api.artic.edu/api/v1/artworks/${imageNum}`);
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(response.status);  
-      }
-      console.log(data);
-      console.log(data.data);
-    const url = data.data.image_id;
-   const date = data.data.date_end;
-  const artistTitle = data.data.artist_title;
-  console.log(artistTitle);
-  console.log(date);
-  console.log(url);
-  
-  const imgUrl = `https://www.artic.edu/iiif/2/${url}/full/200,/0/default.jpg`
-  console.log(imgUrl);
-  const testImg = document.getElementById(id);
-  console.log(testImg);
-  testImg.src = imgUrl;
-  const imgArtist = document.getElementById(artist);
-  imgArtist.innerHTML = artistTitle;
-    } catch (error) {
-      alert('Could not fetch user, try resetting your connection');
-      console.error(error);  
-    } 
-  }*/
-
-  async function getTest(imageNum, id, artist) {
-    try {    
-      const response = await fetch(`https://api.artic.edu/api/v1/artworks/${imageNum}`);
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(response.status);  
-      }
-      console.log("this is you test data", data);
-    const url = data.data.image_id;
-
-    let artistTitle = data.data.artist_title;
-    console.log(artistTitle);
-    console.log(url);
-  
-  const imgUrl = `https://www.artic.edu/iiif/2/${url}/full/200,/0/default.jpg`;
-  console.log(imgUrl);
-  const testImg = document.getElementById(id);
-  testImg.src = imgUrl;
- 
-  const imgArtist = document.getElementById(artist);
-  function extractLastName(fullName) {
-    fullName.toString();
-    // Split the full name string into an array of words
-    const words = fullName.split(" ");
-    
-    // Return the last element of the array (which is the last name)
-    return words[words.length - 1];
-  } 
-  let artistLastNameOnly = extractLastName(artistTitle);
-  imgArtist.innerHTML = artistLastNameOnly;
-
-  console.log(`This is the last name ${artistLastNameOnly}`)
-
-    } catch (error) {
-      alert('Could not fetch user, try resetting your connection');
-      console.error(error);  
-    } 
-  }
-
-  getTest(5357, 'one', "artwork-name-one");
-  getTest(7124, 'two', "artwork-name-two");
-  getTest(869, 'three', "artwork-name-three");
-  getTest(11723, 'four', "artwork-name-four");
-  getTest(14598, 'five', "artwork-name-five");
-  getTest(15468, 'six', "artwork-name-six");
-  getTest(16146, 'seven', "artwork-name-seven");
-  getTest(16362, 'eight', "artwork-name-eight");
-  getTest(16568, 'nine', "artwork-name-nine");
-
-
-
+/*Function for banner image*/
 async function getBanner(imageNum, id) {
     try {    
       const response = await fetch(`https://api.artic.edu/api/v1/artworks/${imageNum}`);
@@ -119,48 +34,147 @@ async function getBanner(imageNum, id) {
   getBanner(4758, "banner-image");
 
 
-
+/*Card Galler Functions*/
  
-  async function getTest(imageNum, id, artist) {
+
+fetch("https://api.artic.edu/api/v1/artworks/search?q=cats&query[term][is_public_domain]=true")
+.then(res => {
+    if(!res.ok) {
+        throw new Error("Invalid Request");
+    }
+    return res.json();
+})
+.then((data)=>{
+    console.log(data.data);
+    const objectIds = [];
+    let artistObj = data.data;
+    for (let i = 0; i < artistObj.length; i++) {
+        objectIds.push(artistObj[i].id);
+      }
+    return objectIds.forEach((imageNum) => getImages(imageNum));
+})
+.catch((err)=>{
+    console.log(err);
+})
+
+
+async function getImages(idImage) {
     try {    
-      const response = await fetch(`https://api.artic.edu/api/v1/artworks/${imageNum}`);
+      const response = await fetch(`https://api.artic.edu/api/v1/artworks/${idImage}`);
       const data = await response.json();
       if (!response.ok) {
         throw new Error(response.status);  
       }
-      console.log("this is you test data", data);
-    const url = data.data.image_id;
+    console.log("this is you test data", data);
 
-    let artistTitle = data.data.artist_title;
-    console.log(artistTitle);
-    console.log(url);
-  
-  const imgUrl = `https://www.artic.edu/iiif/2/${url}/full/200,/0/default.jpg`;
-  console.log(imgUrl);
-  const testImg = document.getElementById(id);
-  testImg.src = imgUrl;
- 
-  const imgArtist = document.getElementById(artist);
-  function extractLastName(fullName) {
-    fullName.toString();
-    // Split the full name string into an array of words
-    const words = fullName.split(" ");
+    /*DOM stuff*/
+   
+ //HTML element grabbed and add our new div,
+let cardHolderId = document.getElementById("card-holder-id");
+let cardTwo = document.createElement("div");
+cardTwo.classList.add('card-two');
+cardHolderId.append(cardTwo);
+    let cardInner = document.createElement("div");
+    cardInner.classList.add('card__inner');
+    cardTwo.append(cardInner);
+    //next level front and back added 
+    let cardFacefront = document.createElement("div");
+    cardFacefront.classList.add("card__face", "card__face--front");
+    let cardFaceback = document.createElement("div");
+    cardFaceback.classList.add('card__face', 'card__face--back');
+    cardInner.append(cardFaceback, cardFacefront);
+    //card front details
+    let cardFrontcontent = document.createElement("div");
+    cardFrontcontent.classList.add('card__frontcontent');
+     cardFacefront.append(cardFrontcontent);
+    let frontHtwo= document.createElement("h2");
+     let frontImage = document.createElement("img");
+    let frontHthree = document.createElement("h3");
+    frontHthree.classList.add('date');
+    cardFrontcontent.append(frontHtwo,frontImage,frontHthree);
     
-    // Return the last element of the array (which is the last name)
-    return words[words.length - 1];
+        //back of card 
+        const cardContentBack = document.createElement("div");
+        cardContentBack.classList.add('card__content');
+        cardFaceback.append(cardContentBack);
+    
+        const cardHeaderBack = document.createElement("div");
+        cardHeaderBack.classList.add("card__header");
+    
+        const cardBodyBack = document.createElement("div");
+        cardBodyBack.classList.add('card__body');
+        cardContentBack.append(cardHeaderBack, cardBodyBack);
+    
+        const cardBackImage = document.createElement("img");
+        cardBackImage.classList.add('pp');
+        const cardBackHtwo = document.createElement("h2");
+        cardHeaderBack.append(cardBackImage,cardBackHtwo);
+        //card back details 
+        const cardBackHthree = document.createElement("h3");
+        const cardBackParagraph = document.createElement("p");
+        cardBodyBack.append(cardBackHthree, cardBackParagraph);
+    
+   
+
+
+      /*image set*/
+    const url = data.data.image_id;
+    const imgUrl = `https://www.artic.edu/iiif/2/${url}/full/200,/0/default.jpg`;
+    frontImage.src = imgUrl;
+    cardBackImage.src = imgUrl;
+
+    /*Set the Date on front of card*/
+
+    const artWorkDate = data.data.date_display;
+    if(artWorkDate === null){
+      frontHthree.innerHTML = "Date Unknown";
+    } else{
+      frontHthree.innerHTML = artWorkDate;
+    }
+
+
+    /*Set the back card place of origin*/
+    let artOrigin = data.data.place_of_origin;
+    cardBackHthree.innerHTML =`Artwork Origin: ${artOrigin}`;
+
+    /*Set the back paragraph information*/
+    let mediumDisplay = data.data.medium_display;
+    cardBackParagraph.innerHTML = mediumDisplay;
+
+    /*get artist title and set to back*/
+    let artistTitle = data.data.artist_title;
+    /*Get last name and set to front*/
+    function extractLastName(fullName) {
+    if(fullName === null){
+      frontHtwo.innerHTML = "Artist Unknown";
+    } else {
+      fullName.toString();
+      const words = fullName.split(" ");
+      let artistLastNameOnly=  words[words.length - 1];
+      frontHtwo.innerHTML = artistLastNameOnly;
+    }
   } 
-  let artistLastNameOnly = extractLastName(artistTitle);
-  imgArtist.innerHTML = artistLastNameOnly;
+  extractLastName(artistTitle);
 
-  console.log(`This is the last name ${artistLastNameOnly}`)
+  function setFullName(fullName) {
+    if(fullName === null){
+      cardBackHtwo.innerHTML = "Artist Unknown";
+    } else {
+      cardBackHtwo.innerHTML = fullName;
+    }
+  } 
+  setFullName(artistTitle);
 
+  cardInner.addEventListener('click', function(){
+    cardInner.classList.toggle('is-flipped');
+})
     } catch (error) {
       alert('Could not fetch user, try resetting your connection');
       console.error(error);  
     } 
-  }
+  } 
 
- 
+
 
 
 
