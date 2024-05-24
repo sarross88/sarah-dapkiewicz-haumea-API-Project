@@ -1,5 +1,3 @@
-alert("HEY working!");
-
 /*Hamburger Menu Stuff*/
 const hamMenu = document.querySelector('.ham-menu');
 console.log(hamMenu);
